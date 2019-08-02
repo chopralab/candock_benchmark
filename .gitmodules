@@ -1,0 +1,4 @@
+[submodule "candock"]
+	path = candock
+	url = https://github.com/chopralab/candock
+	branch = new_build_v0.4.3
