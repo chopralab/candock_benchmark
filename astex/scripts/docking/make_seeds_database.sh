@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-#PBS -l naccesspolicy=shared
+#PBS -l nodes=1:ppn=1
 #PBS -l walltime=4:00:00
-#PBS -l nodes=1:ppn=24
-#PBS -v ROOT_DIR,MCANDOCK_LOCATION
-#PBS -q standby
+#PBS -l naccesspolicy=singleuser
+#PBS -v ROOT_DIR,MCANDOCK_LOCATION,CANDOCK_top_percent
 #PBS -d .
 
 export module_to_run=dock_fragments

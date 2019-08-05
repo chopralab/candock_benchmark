@@ -66,17 +66,16 @@ sub print_line {
 
     my $protein = shift;
     my $top_percent = shift;
-    my $class = shift;
-    my $frags = shift;
 
-    my $calc = "${protein}$ENV{suffix}/${top_percent}";
+    my $calc = "${protein}/${top_percent}";
 
     my @score = read_file( "$calc/score.lst" );
 
     if ( $#score == -1 ) {
-        print "$protein,$class,$frags,$mer,$top_percent,NA,NA,NA,NA,NA,NA"; #batman
-        print ",NA" x (96 + 8);
+        print "$protein,0,$top_percent,NA,NA,NA,NA,NA,NA"; #batman
+        print ",NA" x 96;
         print "\n";
+        return ();
     }
 
     my @model = read_file( "$calc/model.lst", $#score );
@@ -90,7 +89,7 @@ sub print_line {
 
     foreach my $i ( 0 .. $#score ) {
         my $index = $i + 1;
-        print "$protein,$class,$frags,0,$top_percent,$score[$i],$model[$i],$rmsds[$i]";
+        print "$protein,0,$top_percent,$score[$i],$model[$i],$rmsds[$i]";
         print ",$mean[$i]";
         print "\n";
     }
@@ -114,7 +113,7 @@ sub read_table {
     return %ret;
 }
 
-print "pdb,class,frags,mer,";
+print "pdb,frags,";
 print "top_percent,score,model,";
 print "rmsd_graph,rmsd_coord,rmsd_vina,";
 print "rmr4,rmr5,rmr6,rmr7,rmr8,rmr9,rmr10,rmr11,rmr12,rmr13,rmr14,rmr15,";
@@ -130,15 +129,12 @@ print "\n";
 
 my $ROOT_DIR="$ENV{ROOT_DIR}";
 
-my %classes = read_table("$ROOT_DIR/classes.csv", ",");
-my %frags   = read_table("$ROOT_DIR/bonds.tbl", " ");
-
 open my $all_lst, '<', "$ROOT_DIR/all.lst" or die "$!\n";
 
 while ( <$all_lst> ) {
     chomp;
     foreach my $top_percent (@top_percent) {
-         print_line ( $_, $top_percent, $classes{$_}, $frags{$_});
+         print_line ( $_, $top_percent);
     }
 }
 

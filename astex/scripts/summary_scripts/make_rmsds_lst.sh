@@ -41,7 +41,7 @@ do
         fi
 
         echo "$m $i"
-        $MCANDOCK_LOCATION/cacrystal_rmsd.sh $original_file $prot_name/$i/${m}_ligand.pdb $ncpu > $prot_name/$i/rmsds.lst
+        $MCANDOCK_LOCATION/cacrystal_rmsd.sh $original_file $prot_name/$i/LIGAND.pdb $ncpu > $prot_name/$i/rmsds.lst
         sed -i '1d;$d' $prot_name/$i/rmsds.lst
     done
 done

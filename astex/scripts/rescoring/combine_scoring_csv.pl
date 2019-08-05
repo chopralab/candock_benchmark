@@ -91,21 +91,21 @@ sub print_line {
     my $protein = shift;
     my $top_percent = shift;
 
-    return if -e "${protein}_pocket/${top_percent}/combined.tbl";
+    return if -e "${protein}/${top_percent}/combined.tbl";
 
-    my $calc = "${protein}_pocket/${top_percent}";
+    my $calc = "${protein}/${top_percent}";
 
     my @score = read_file( "$calc/score.lst" );
 
     if ( $#score == -1 ) {
-        `touch ${protein}_pocket/${top_percent}/combined.tbl`;
+        `touch ${protein}/${top_percent}/combined.tbl`;
         return;
     }
 
     my @sfs = read_all_scoring_functions($#score, $calc);
     return unless @sfs;
 
-    open my $outfile, ">", "${protein}_pocket/${top_percent}/combined.tbl";
+    open my $outfile, ">", "${protein}/${top_percent}/combined.tbl";
 
     foreach my $i ( 0 .. $#score ) {
         my $idex = $i + 1;
@@ -124,7 +124,7 @@ if ( $ROOT_DIR eq "" ) {
     exit(0);
 }
 
-open my $all_lst, '<', "$ROOT_DIR/core.lst" or die "$!\n";
+open my $all_lst, '<', "$ROOT_DIR/all.lst" or die "$!\n";
 
 while ( <$all_lst> ) {
     chomp;

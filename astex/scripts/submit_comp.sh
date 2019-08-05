@@ -7,20 +7,16 @@ then
     exit
 fi
 
-command_name=$1
-shift
-
-top_p=$1
+program=$1
 shift
 
 number=$1
 shift
 
-export CANDOCK_top_percent=$top_p
-
-my_depend=`qsub $ROOT_DIR/scripts/$command_name $@`
+echo qsub -d . $ROOT_DIR/scripts/$program $@
+my_depend=`qsub -d . $ROOT_DIR/scripts/$program $@`
 
 for i in `seq 2 $number`
 do
-    my_depend=`qsub $ROOT_DIR/scripts/$command_name -W depend=after:$my_depend $@`
+    my_depend=`qsub -d . $ROOT_DIR/scripts/$program -W depend=after:$my_depend $@`
 done

@@ -51,4 +51,3 @@ do
     mv /tmp/${PBS_JOBID}_output.log $protein_name/$CANDOCK_docked_dir/output.log
     mv /tmp/${PBS_JOBID}_errors.log $protein_name/$CANDOCK_docked_dir/errors.log
 done
-

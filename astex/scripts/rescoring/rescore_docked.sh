@@ -16,7 +16,7 @@ top_percent=(0.005 0.01 0.02 0.05 0.10 0.20 0.50 1.00)
 
 export module_to_run=rescore_docked
 
-for m in `cat $ROOT_DIR/core.lst`
+for m in `cat $ROOT_DIR/all.lst`
 do
     file_name=${CANDOCK_func}_${CANDOCK_ref}_${CANDOCK_comp}_${CANDOCK_cutoff}.lst
 
@@ -48,9 +48,9 @@ do
         echo "$m $i"
         $MCANDOCK_LOCATION/rescore_docked.sh --ncpu 1 \
             --dist $MCANDOCK_LOCATION/../../data/csd_complete_distance_distributions.txt \
-            --receptor ${m}_pocket/$i/${m}_ligand.pdb > \
-            ${m}_pocket/$i/$file_name 2> /dev/null
+            --receptor ${m}/$i/LIGAND.pdb \
+            > ${m}/$i/$file_name 2> /dev/null
 
-        sed -i '1d;$d' ${m}_pocket/$i/$file_name
+        sed -i '1d;$d' ${m}/$i/$file_name
     done
 done
