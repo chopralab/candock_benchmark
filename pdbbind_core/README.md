@@ -18,11 +18,11 @@ This will create a directory called *structures* in the current directory.
 
 ## Create the seeds database
 
-Now, run the script *make_seeds_database.sh* in the docking folder of the scripts directory. If you are running this command on a computing cluster, the script `submit_comp.sh` is provided for your convience. This can be done with the follow:
+Now, run the script *make_seeds_database.sh* in the docking folder of the scripts directory. If you are running this command on a computing cluster, the script `submit_comp.sh` is provided for your convenience. This can be done with the follow:
 
 ```bash
 number_of_jobs_to_launch=20
-bash scripts/submit_comp.sh docking/make_seeds_database.sh $number_of_jobs_to_launch -l nodes=1:ppn=4,walltime=10:00:00 -v ROOT_DIR=$ROOT_DIR,MCANDOCK_LOCATION=$MCANDOCK_LOCATION
+bash $ROOT_DIR/scripts/submit_comp.sh docking/make_seeds_database.sh $number_of_jobs_to_launch -l nodes=1:ppn=4,walltime=10:00:00
 ```
 
 ## Link the seeds
@@ -34,10 +34,7 @@ mkdir docking
 cd docking
 mkdir rigid
 cd rigid
-$ROOT_DIR/scripts/submit_comp.sh docking/dock_rigid.sh \
-    $number_of_jobs_to_launch \
-    -l nodes=1:ppn=4,walltime=10:00:00 \
-    -v ROOT_DIR=$ROOT_DIR,MCANDOCK_LOCATION=$MCANDOCK_LOCATION,CANDOCK_top_percent=XXX
+bash $ROOT_DIR/scripts/submit_docking.sh docking/dock_rigid.sh 0.05 $number_of_jobs_to_launch -l nodes=1:ppn=1,walltime=10:00:00
 ```
 
 ## Rescore the poses and get summary data
@@ -50,14 +47,13 @@ $ROOT_DIR/scripts/fixing/fix_fixed.sh # For MSE structures
 $ROOT_DIR/scripts/rescoring/submit_all_new_scores.sh
 $ROOT_DIR/scripts/summary_scripts/make_model_lst.sh
 $ROOT_DIR/scripts/summary_scripts/make_score_lst.sh
-$ROOT_DIR/scripts/submit_comp.sh summary_scripts/make_rmsds_lst.sh 20 -l nodes=1:ppn=4,walltime=10:00:00 -v ROOT_DIR=$ROOT_DIR,MCANDOCK_LOCATION=$MCANDOCK_LOCATION
+$ROOT_DIR/scripts/submit_comp.sh summary_scripts/make_rmsds_lst.sh 20 -l nodes=1:ppn=4,walltime=10:00:00
 ```
 
 Once all the jobs have completed, do the following:
 
 ```bash
 $ROOT_DIR/scripts/rescoring/combine_scoring_csv.pl
-$ROOT_DIR/scripts/rescoring/combine_scoring_csv_cumulative.pl
 ```
 
 ## Combine the summaries together
@@ -69,4 +65,3 @@ $ROOT_DIR/scripts/make_csv_scoring_combined.pl > rigid.csv
 ```
 
 The above (after the generation of the seeds database) must be performed for all types of docking (flexible, semi-rigid, *insert your own type here*).
-

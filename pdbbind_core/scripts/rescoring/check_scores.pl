@@ -44,7 +44,7 @@ sub check_all_scoring_functions {
     my $expected_length = shift;
     my $calc = shift;
 
-    my @aref = ('cumulative');
+    my @aref = ('mean', 'cumulative');
     my @afunc= ('radial', 'normalized_frequency');
     my @acomp= ('reduced', 'complete');
     my @acuts= (4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);

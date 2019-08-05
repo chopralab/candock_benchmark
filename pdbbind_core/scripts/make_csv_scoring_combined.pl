@@ -58,16 +58,13 @@ sub print_line {
     my @rmsds = read_file( "$calc/rmsds.lst", $#score );
     return unless @rmsds;
 
-    my @mean = read_file("$calc/combined.tbl", $#score);
-    return unless @mean;
-
-    my @cume = read_file("$calc/cumulative.tbl", $#score);
-    return unless @cume;
+    my @all_scores = read_file("$calc/combined.tbl", $#score);
+    return unless @all_scores;
 
     foreach my $i ( 0 .. $#score ) {
         my $index = $i + 1;
         print "$protein,$frags,$mer,$top_percent,$score[$i],$model[$i],$rmsds[$i]";
-        print ",$mean[$i],$cume[$i]";
+        print ",$all_scores[$i]";
         print "\n";
     }
 }
@@ -97,7 +94,6 @@ print ",rmr4,rmr5,rmr6,rmr7,rmr8,rmr9,rmr10,rmr11,rmr12,rmr13,rmr14,rmr15";
 print ",rmc4,rmc5,rmc6,rmc7,rmc8,rmc9,rmc10,rmc11,rmc12,rmc13,rmc14,rmc15";
 print ",fmr4,fmr5,fmr6,fmr7,fmr8,fmr9,fmr10,fmr11,fmr12,fmr13,fmr14,fmr15";
 print ",fmc4,fmc5,fmc6,fmc7,fmc8,fmc9,fmc10,fmc11,fmc12,fmc13,fmc14,fmc15";
-print ",index1";
 print ",rcr4,rcr5,rcr6,rcr7,rcr8,rcr9,rcr10,rcr11,rcr12,rcr13,rcr14,rcr15";
 print ",rcc4,rcc5,rcc6,rcc7,rcc8,rcc9,rcc10,rcc11,rcc12,rcc13,rcc14,rcc15";
 print ",fcr4,fcr5,fcr6,fcr7,fcr8,fcr9,fcr10,fcr11,fcr12,fcr13,fcr14,fcr15";

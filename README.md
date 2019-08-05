@@ -12,4 +12,4 @@ git submodule init
 git submodule update
 ```
 
-Please see the CANDOCK readme (now in the *candock* directory) for instructions on how to build and install the project. After this this is complete, you can run the benchmarking scripts in the project directories.
+Please see the CANDOCK readme (now in the *candock* directory) for instructions on how to build and install the project. After this this is complete, you can run the benchmarking scripts in the benchmark directories.

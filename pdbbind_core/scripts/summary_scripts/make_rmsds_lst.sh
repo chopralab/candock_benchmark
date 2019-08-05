@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=4:00:00
+#PBS -l naccesspolicy=singleuser
+#PBS -v ROOT_DIR,MCANDOCK_LOCATION
+#PBS -d .
 
 if [[ -z $ROOT_DIR || -z $MCANDOCK_LOCATION ]]
 then
