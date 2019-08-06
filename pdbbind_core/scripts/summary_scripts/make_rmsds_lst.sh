@@ -21,36 +21,34 @@ fi
 
 for m in `cat $ROOT_DIR/core.lst`
 do
+    for i in "${top_percent[@]}"; do
 
-   for i in "${top_percent[@]}"; do
+        if [[ -e ${m}_pocket/$i/rmsds.lst ]]
+        then
+            continue
+        fi 
 
-       if [[ -e ${m}_pocket/$i/rmsds.lst ]]
-       then
-           continue
-       fi 
+        if [[ ! -d ${m}_pocket/$i/ ]]
+        then
+            echo "$m $i was not run!"
+            continue
+        fi
 
-       if [[ ! -d ${m}_pocket/$i/ ]]
-       then
-           echo "$m $i was not run!"
-           continue
-       fi
+        if [[ ! -s ${m}_pocket/$i/${m}_ligand.pdb ]]
+        then
+            echo "$m $i does not exist!"
+            continue
+        fi
 
-       if [[ ! -s ${m}_pocket/$i/${m}_ligand.pdb ]]
-       then
-           echo "$m $i does not exist!"
-           continue
-       fi
+        original_file=$ROOT_DIR/structures/$m/prepared_ligands.pdb
 
-       original_file=$ROOT_DIR/structures/$m/prepared_ligands.pdb
+        if [[ -s $ROOT_DIR/structures/$m/prepared_ligands_fixed.pdb ]]
+        then
+            original_file=$ROOT_DIR/structures/$m/prepared_ligands_fixed.pdb
+        fi
 
-       if [[ -s $ROOT_DIR/structures/$m/prepared_ligands_fixed.pdb ]]
-       then
-           original_file=$ROOT_DIR/structures/$m/prepared_ligands_fixed.pdb
-       fi
-
-       echo "$m $i"
-       $MCANDOCK_LOCATION/cacrystal_rmsd.sh $original_file ${m}_pocket/$i/${m}_ligand.pdb $ncpu > ${m}_pocket/$i/rmsds.lst
-       sed -i '1d;$d' ${m}_pocket/$i/rmsds.lst
-   done;
+        echo "$m $i"
+        $MCANDOCK_LOCATION/cacrystal_rmsd.sh $original_file ${m}_pocket/$i/${m}_ligand.pdb $ncpu > ${m}_pocket/$i/rmsds.lst
+        sed -i '1d;$d' ${m}_pocket/$i/rmsds.lst
+    done
 done
-

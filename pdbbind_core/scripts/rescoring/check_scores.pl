@@ -85,13 +85,10 @@ if ( $ROOT_DIR eq "" ) {
 open my $all_lst, '<', "$ROOT_DIR/core.lst" or die "$!\n";
 
 while ( <$all_lst> ) {
-
     chomp;
     foreach my $top_percent (@top_percent) {
         check_run ( $_, $top_percent );
     }
-
-    
 }
 
 close $all_lst;

@@ -47,7 +47,7 @@ sub print_line {
     my @score = read_file( "$calc/score.lst" );
 
     if ( $#score == -1 ) {
-        print "$protein,$frags,$mer,$top_percent,NA,NA,NA,NA,NA"; #batman
+        print "$protein,$frags,$mer,$top_percent,NA,NA,NA,NA,NA,NA"; #batman
         print ",NA" x (96);
         print "\n";
     }
