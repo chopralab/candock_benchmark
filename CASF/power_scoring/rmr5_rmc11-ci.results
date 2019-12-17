@@ -1,0 +1,22 @@
+
+ORDINARY NONPARAMETRIC BOOTSTRAP
+
+
+Call:
+boot(data = aa, statistic = mycore, R = 10000, sim = "ordinary", 
+    stype = "i")
+
+
+Bootstrap Statistics :
+     original        bias    std. error
+t1* 0.6230209 -0.0005554855  0.03413116
+BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 10000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = data.boot, conf = 0.9, type = c("bca"))
+
+Intervals : 
+Level       BCa          
+90%   ( 0.5647,  0.6767 )  
+Calculations and Intervals on Original Scale

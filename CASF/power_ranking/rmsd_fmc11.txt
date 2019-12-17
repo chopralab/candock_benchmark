@@ -1,0 +1,70 @@
+   Target Rank1 Rank2 Rank3 Rank4 Rank5
+1    5c2h  5c2h  3ui7  3uuo  5c28  4llx
+2    4rfm  4rfm  3qgy  4m0z  4qd6  4m0y
+3    4ty7  4x6p  4crc  4cra  4ty7  4cr9
+4    4agq  5a7b  4agq  4agp  4agn  5aba
+5    5dwr  5dwr  4k18  3bgz  2c3i  3jya
+6    4twp  2v7a  4twp  3k5v  3pyy  3mss
+7    3u8n  4qac  3u8n  3wtj  3u8k  3zdg
+8    3p5o  3p5o  4ogj  4wiv  3u5j  4lzs
+9    3ejr  3ejr  1ps3  3d4z  3dx2  3dx1
+10   3ebp  4eky  3syr  3g2n  3l7b  3ebp
+11   3arp  3arp  3arq  3arv  3aru  3ary
+12   3gnw  3gnw  4eo8  3cj4  4ih5  4ih7
+13   1e66  1h23  1h22  1e66  1gpn  1gpk
+14   3f3e  4mme  3f3a  3f3c  3f3e  3f3d
+15   2cet  2cet  2wbg  2j78  2cbv  2j7h
+16   4gid  4gid  2vkm  4djv  3udh  3rsx
+17   3ge7  3ge7  3gc5  3rr4  1s38  1r5y
+18   3e93  3e93  3e92  2zb1  4f9w  4dli
+19   3qqs  3qqs  4gkm  3r88  4owm  3twp
+20   3ag9  3ag9  1ydt  1q8u  1ydr  1q8t
+21   3coy  3coy  3coz  3ivg  4ddh  4ddk
+22   2fvd  2fvd  2xnb  4eor  1pxn  3pxf
+23   4ivc  4e5w  4ivd  4ivc  4ivb  4k77
+24   4jia  4hge  4jia  4e6q  4f09  4gfm
+25   1nvq  1nvq  2br1  2brb  3jvs  3jvr
+26   2zcq  2zcr  2zy1  2zcq  4ea2  3acw
+27   3utu  3utu  3bv9  1oyt  2zda  1bcu
+28   2p4y  2p4y  3b1m  3fur  2yfe  3u9q
+29   3myg  2wtv  3e5a  3uo4  3up2  3myg
+30   1sqa  1sqa  1owh  1o5b  3kgp  1c5z
+31   3dd0  3ryj  3dd0  3kwa  2weg  4jsz
+32   3g0w  3b68  1z95  3b5r  3b65  3g0w
+33   2al5  1syi  2al5  1p1n  4u4s  1p1q
+34   4de1  4de2  4de1  4de3  3g2z  3g31
+35   3fv1  3fv1  3fv2  4dld  3gbb  1vso
+36   2p15  2p15  2qe4  2pog  1qkt  4mgd
+37   1mq6  2xbv  1lpg  1z6e  1mq6  2y5h
+38   4f3c  4f3c  1nc1  1y6r  4f2w  1nc3
+39   1o3f  1k1i  1o3f  4abg  3gy4  1uto
+40   2vw5  2yge  2vw5  2fxs  2iwx  2wer
+41   2x00  2x00  2xys  2wnc  2wn9  2ymd
+42   3nw9  3nw9  3ozs  3oe4  3oe5  3ozt
+43   2xb8  3n86  3n76  2xb8  4ciw  3n7a
+44   3uex  3uex  3uew  3uev  3ueu  3nq9
+45   4gr0  4gr0  3tsk  3nx7  3ehy  3lka
+46   1u1b  1u1b  1o0h  3d6q  3dxg  1w4o
+
+Summary of the ranking power: ===========================================
+The Spearman correlation coefficient (SP) = 0.554
+The Kendall correlation coefficient (tau) = 0.465
+The Predictive index (PI) = 0.583
+=========================================================================
+
+
+Template command for running the bootstrap in R program==================
+
+rm(list=ls());
+require(boot);
+data_all<-read.table("rmsd_fmc11_Spearman.results",header=TRUE);
+data<-as.matrix(data_all[,2]);
+mymean<-function(x,indices) sum(x[indices])/46;
+data.boot<-boot(aa,mymean,R=10000,stype="i",sim="ordinary");
+sink("rmsd_fmc11_Spearman-ci.results");
+a<-boot.ci(data.boot,conf=0.9,type=c("bca"));
+print(a);
+sink();
+
+=========================================================================
+
