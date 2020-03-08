@@ -1,6 +1,6 @@
 # Candock benchmarking scripts
 
-This project contains all the benchmarking scripts required to reproduce the results presented in our [docking paper](https://www.biorxiv.org/content/10.1101/442897v2). Each benchmarking set is given its own project directory along with the protein and ligand structures used in the benchmark. The scripts used to run CANDOCK on these benchmarking sets are also provided in their corresponding directories.
+This project contains all the benchmarking scripts required to reproduce the results presented in our [docking paper](https://pubs.acs.org/doi/10.1021/acs.jcim.9b00686). Each benchmarking set is given its own project directory along with the protein and ligand structures used in the benchmark. The scripts used to run CANDOCK on these benchmarking sets are also provided in their corresponding directories.
 
 If you use this repository, please be sure to not only cite the CANDOCK paper, but the benchmark sets themselves. The links to these papers are as follows:
 
